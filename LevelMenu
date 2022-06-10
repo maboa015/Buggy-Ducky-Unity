@@ -1,0 +1,45 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement; //dette gir oss abilitien til å loade inn scener via kode
+
+public class LevelMenu : MonoBehaviour
+{
+    public string Level1; // public string lager en ting i Unity editeren, hit skal navnet til scenen til nivå 1 og denne stringen blir kalt på knapp
+
+    public string Level2;
+    public string Level3;
+    public string Level4;
+    public string Level5;
+    public string Level6;
+    public string Level7;
+    public string Level8;        
+    public string MainMenu;    
+    public void Start1(){
+        SceneManager.LoadScene(Level1); // loader inn en selected scene. selected scene kan jeg selv velge i Unity Editeren takket være Public String
+    }
+    public void Start2(){
+        SceneManager.LoadScene(Level2);
+    }
+    public void Start3(){
+        SceneManager.LoadScene(Level3);
+    }
+    public void Start4(){
+        SceneManager.LoadScene(Level4);
+    }
+    public void Start5(){
+        SceneManager.LoadScene(Level5);
+    }
+    public void Start6(){
+        SceneManager.LoadScene(Level6);
+    }
+    public void Start7(){
+        SceneManager.LoadScene(Level7);
+    }
+    public void Start8(){
+        SceneManager.LoadScene(Level8);
+    }
+    public void BackToMenu(){
+        SceneManager.LoadScene(MainMenu);
+    }
+}

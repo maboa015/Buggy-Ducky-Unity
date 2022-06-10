@@ -1,0 +1,33 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class AFKcheck : MonoBehaviour
+{
+    float afkTime = 0f; // starter på 0
+    float Endingpoint = 120f; // hvor mange sekunder before disaster
+    void Update(){
+        afkTime += 1 *Time.deltaTime; // timer
+
+        if (afkTime > Endingpoint){
+            Debug.Log("quit");
+            Application.Quit(); //quiter game for å ikke waste brukerens RAM
+        }
+        
+// sjekker om musen beveger seg til sidene. hvis den gjør det så reseter det timeren
+        if(Input.GetAxis("Mouse X")<0)
+        {
+            print("Musen bevegde seg til venstre");
+            afkTime = 0f;
+        }
+        else if(Input.GetAxis("Mouse X")>0)
+        {   
+            print("Musen beveger seg til høyre");
+            afkTime = 0f;
+        }
+        else if(Input.GetMouseButtonDown(0)){ //sjekker om musen har blitt klikket
+            print("Mus klikket");
+            afkTime =0f;
+        }   
+}
+}

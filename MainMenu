@@ -1,0 +1,152 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement; //dette gir oss abilitien til å loade inn scener via kode
+
+public class MainMenu : MonoBehaviour
+{
+    public string firstLevel; //det er scenen spillet skal loade da man trykker på Start knappen. hvilken scene blir valgt inni Unity Engine
+
+    public GameObject optionsScreen; //dette er optionsene som blir åpnet og låst. jeg kan velge i Unity hva disse er
+    public GameObject graphicsScreen;
+    public GameObject soundsScreen;
+    public GameObject controllsScreen;
+    public GameObject supportScreen;
+    public GameObject leaveScreen;
+    private bool leaving = false;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        optionsScreen.SetActive(false); //hver gang man starter så er alle slags options vinduer ikke visst
+        graphicsScreen.SetActive(false);
+        soundsScreen.SetActive(false);
+        controllsScreen.SetActive(false);
+        supportScreen.SetActive(false);
+        leaveScreen.SetActive(false);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) //hvis esc er trykket så låses alt og leave popup kommer opp
+        {
+              if (leaving)
+            { // vekk med popupen
+                leaveScreen.SetActive(false);
+            }else
+            { // leave? popup
+                optionsScreen.SetActive(false);
+                graphicsScreen.SetActive(false);
+                soundsScreen.SetActive(false);
+                controllsScreen.SetActive(false);
+                supportScreen.SetActive(false);
+                
+                leaveScreen.SetActive(true);
+            }
+            leaving = !leaving; //det blir til det motsatte av det det er så hvis det er false så blir det true og er det true så blir det false.
+        }
+    }
+
+    public void StartGame() // spill 
+    {
+       SceneManager.LoadScene(firstLevel); // loader inn en selected scene. selected scene kan jeg selv velge i Unity Editeren takket være Public String
+    }
+    public void OpenOptions()
+    {
+        graphicsScreen.SetActive(false);
+        soundsScreen.SetActive(false);
+        controllsScreen.SetActive(false);
+        supportScreen.SetActive(false);
+
+        leaving = false;
+        leaveScreen.SetActive(false);
+
+        optionsScreen.SetActive(true); //gjør Options screen synlig
+    }
+
+    public void CloseOptions()
+    {
+        optionsScreen.SetActive(false); //gjør Options screen usynlig
+    }
+    public void OpenGraphics()
+    {   
+        soundsScreen.SetActive(false);
+        controllsScreen.SetActive(false);
+        supportScreen.SetActive(false);
+
+        graphicsScreen.SetActive(true); 
+    }
+    public void OpenSounds()
+    {
+        graphicsScreen.SetActive(false);
+        controllsScreen.SetActive(false);
+        supportScreen.SetActive(false);
+
+        soundsScreen.SetActive(true);
+    }
+    
+    public void OpenControlls()
+    {
+        optionsScreen.SetActive(false); 
+        graphicsScreen.SetActive(false);
+        soundsScreen.SetActive(false);
+        supportScreen.SetActive(false);
+
+        leaving = false;
+        leaveScreen.SetActive(false);
+
+        controllsScreen.SetActive(true);
+    }
+    public void CloseControlls()
+    {
+        controllsScreen.SetActive(false);
+    }
+    //   SUPPORT
+    public void OpenSupport() // åpne support
+    {   
+        optionsScreen.SetActive(false); 
+        graphicsScreen.SetActive(false);
+        soundsScreen.SetActive(false);
+        controllsScreen.SetActive(false);
+
+        leaving = false;
+        leaveScreen.SetActive(false);
+
+        supportScreen.SetActive(true);
+    }
+    public void CloseSupport() // lukke support
+    {
+        supportScreen.SetActive(false);
+    }
+    public void FAQ() // support page > FAQ 
+    {
+        Application.OpenURL("10.2.1.18"); // sender til min side hvor FAQ befinner seg
+    }
+    public void Contact() // support page > contact
+    {
+        Application.OpenURL("mailto:maboa015@osloskolen.no?subject=WALL-OUT user mailto!&body=Hi, this is an User of WALL-OUT and i have a question..."); //åpner opp email med mailto fylt ut
+    }
+    //  QUIT
+    public void AreYouLeaving() // quit popup 
+    {
+        if (leaving){ //deaktiverer popup
+            leaving = false;
+            leaveScreen.SetActive(false);
+        }
+        else{ //aktiverer popup
+            leaving = true;
+            leaveScreen.SetActive(true);
+        }
+    }
+    public void ImNotLeaving(){ // staying in game
+        leaving = false;
+        leaveScreen.SetActive(false);
+    }
+    public void QuitGame() // leaving game
+    {
+        Application.Quit(); //quiter 
+        Debug.Log("Quitting");
+    }
+}
+// lag en bool som i pause bare for exit, så hver gang man trykker escape så åpner/lukker seg et vindu som spør om å quite spillet

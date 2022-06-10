@@ -1,0 +1,41 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class GraphicsScreen : MonoBehaviour
+{
+    public Toggle fullscreenTog, vsyncTog;
+    // Start is called before the first frame update
+    void Start()
+    {
+        fullscreenTog.isOn = Screen.fullScreen; // Sjekker om spillet er fullscreen da det starter. Hvis det er fullscreen så blir det true, hvis ikke, false
+
+        if(QualitySettings.vSyncCount == 0) // Sjekker om monitoren har på Vsync. Hvis valuen er 0 så har den ikke, hvis det er 1 eller over så er det på.
+        {
+            vsyncTog.isOn = false;
+        }else
+        {
+            vsyncTog.isOn = true;
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void ApplyChanges()
+    {
+        Screen.fullScreen = fullscreenTog.isOn; 
+
+        if(vsyncTog.isOn)
+        {
+            QualitySettings.vSyncCount = 1;
+        }else
+        {
+            QualitySettings.vSyncCount = 0;
+        }
+    }
+}

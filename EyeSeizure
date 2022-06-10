@@ -1,0 +1,34 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EyeSeizure : MonoBehaviour
+{
+    // script for å se seg rundt. den heter EyeSeizure fordi jeg følte jeg hadde EyeSeisure mens jeg skrev denne skripten.
+    public float mouseSensitivity = 100f;
+    public Transform playerBody;
+
+    float xRotation = 0f;
+    
+    // Start is called before the first frame update
+    void Start()
+    { 
+    // feil: Cursor.lockState = CursorLockMode.Locked;
+    // passer på at mens vi ser oss rundt så kan vi ikke se musen vår og at man ikke går ut av spillet ved å klikke utenfor displayen som er veldig irriterende 
+    }
+    
+
+    // Update is called once per frame
+    void Update()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime; //ved å gange med Time.deltaTime passer man på at man ikke roterer fortere av å ha høyere FPS
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f); // passer på at vi ikke kan overrotere kammeraet og se bak oss. dette kan kanskje bli senere bli fjerna til å ikke ha noe for at man skal kunne rotere hele veien rundt i tilfelle jeg får nok tid til å adde lore til spillet og gjøre playeren til en robot
+
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+
+        playerBody.Rotate(Vector3.up * mouseX);
+    }
+}

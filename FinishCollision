@@ -1,0 +1,14 @@
+using UnityEngine;
+using UnityEngine.SceneManagement; //dette gir oss abilitien til å loade inn scener via kode
+
+
+public class FinishCollision : MonoBehaviour
+{
+    public string NextLevel;
+    void OnCollisionEnter (Collision collisionInfo) { // on collision ber vi Unity om info av det vi traff
+        Debug.Log(collisionInfo.collider.name);
+        if (collisionInfo.collider.name == "Finish"){  //veldig buggy collision men det funker so we good PS. Det er en grunn til at det heter BUGGY ducky 
+            SceneManager.LoadScene(NextLevel);
+        }
+    }
+}

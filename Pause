@@ -1,0 +1,66 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement; //dette gir oss abilitien til å loade inn scener via kode
+
+public class Pause : MonoBehaviour
+{
+    public string MainMenu; //det er scenen spillet skal loade da man trykker på Back To Menu knappen. hvilken scene blir valgt inni Unity Engine
+    private bool paused = false; //da spillet starter så er det ikke pauset
+    public GameObject pauseScreen; //dette er screenet som blir åpnet og låst. jeg kan velge i Unity hva disse er
+    public GameObject controlsScreen;
+    void Start()
+    {
+        pauseScreen.SetActive(false); //hver gang man starter så er pausemenyen slått av
+        controlsScreen.SetActive(false);
+          
+        Time.timeScale = 1;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+              if (paused)
+            {//unpause
+                Time.timeScale = 1;
+                pauseScreen.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
+            }else
+            {//pause
+                Time.timeScale = 0;
+                pauseScreen.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+
+            }
+            paused = !paused; //det blir til det motsatte av det det er så hvis det er false så blir det true og er det true så blir det false.
+        }
+                if (Input.GetKeyDown(KeyCode.R)) //reset level function
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
+    
+    public void Resume()
+        {
+            Time.timeScale = 1;
+            pauseScreen.SetActive(false);
+        }
+    public void ResetLevel() 
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void OpenControls()
+    {
+        controlsScreen.SetActive(true);
+    }
+    public void CloseControlls()
+    {
+        controlsScreen.SetActive(false);
+    }
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(MainMenu);
+    }
+}
